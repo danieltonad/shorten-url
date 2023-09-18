@@ -1,6 +1,7 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from config.database import database
 from utils import uniqueShorts
+from http import HTTPStatus
 
 app = FastAPI()
 
@@ -8,7 +9,11 @@ app = FastAPI()
 def root():
     return '__init__'
 
-@app.grt('/shorten/{url}')
-async def shorten_url(url: str):
-    payload = 
-    database.
+@app.get('/shorten/{url}')
+async def shorten_url(url: str, request: Request):
+    short = uniqueShorts()
+    payload = {'key': short, 'link': url}
+    if database.put(payload, expire_in=3600):
+        return f'{request.base_url}{short}'
+    else:
+        False
