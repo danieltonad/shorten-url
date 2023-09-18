@@ -1,4 +1,4 @@
 from pydantic import BaseModel
 
-class Shortner(BaseModel):
+class ShortnerRequest(BaseModel):
     links: str
