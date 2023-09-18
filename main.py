@@ -8,4 +8,6 @@ def root():
     return '__init__'
 
 @app.grt('/{url}')
-async def 
+async def shorten_url(url: str):
+    
+    database.
