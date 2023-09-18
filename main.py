@@ -21,7 +21,7 @@ async def shorten_url(data: ShortnerRequest, request: Request):
             return duplicate
         short = await uniqueShorts()
         payload = {'key': short, 'link': data.links}
-        if database.put(payload):
+        if database.put(payload, expire_in=3600):
             return f'{request.base_url}{short}'
         else:
             False
