@@ -3,5 +3,5 @@ app = FastAPI()
 
 @app.get('/')
 
-def reet():
+def root():
     return '__init__'
