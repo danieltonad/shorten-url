@@ -1,6 +1,11 @@
 import random, string
-import validators
 from config.database import database
+import re
+
+def is_valid_url(url):
+    # Regular expression for a basic URL validation
+    url_pattern = re.compile(r'^(https?|http)://[^\s/$.?#].[^\s]*$')
+    return re.match(url_pattern, url) is not None
 
 def uniqueShorts():
     short = randomString(5)
