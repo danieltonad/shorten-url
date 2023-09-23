@@ -18,15 +18,15 @@ def is_valid_url(url):
     return re.match(url_pattern, url) is not None
 
 async def uniqueShorts():
-    short = randomString(5)
+    short = randomString()
     if database.get(short):
         return await uniqueShorts()
     else:
          return short
 
-def randomString(length=10):
+def randomString():
     characters = string.ascii_letters + string.digits
-    return ''.join(random.choice(characters) for _ in range(length))
+    return ''.join(random.choice(characters) for _ in range(3,5))
 
 async def duplicateLink(link: str, request: Request):
     __ = database.fetch({'link': link})._items
