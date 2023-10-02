@@ -2,12 +2,16 @@ from fastapi import FastAPI, Request
 from config.database import database
 from utils import uniqueShorts, is_valid_url, duplicateLink, redirectShorts
 from request import ShortnerRequest
+from fastapi.responses import RedirectResponse
 
-app = FastAPI()
+app = FastAPI(
+    docs_url= None, 
+    docs_url= None
+    )
 
 @app.get('/')
 def root():
-    return '__init__'
+    return RedirectResponse('https://google.com')
 
 @app.get('/{short}')
 async def links(short: str):
@@ -21,7 +25,7 @@ async def shorten_url(data: ShortnerRequest, request: Request):
             return duplicate
         short = await uniqueShorts()
         payload = {'key': short, 'link': data.links}
-        if database.put(payload, expire_in=3600):
+        if database.put(payload):
             return f'{request.base_url}{short}'
         else:
             False
