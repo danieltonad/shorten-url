@@ -6,7 +6,7 @@ from fastapi.responses import RedirectResponse
 
 app = FastAPI(
     docs_url= None, 
-    docs_url= None
+    redoc_url=None,
     )
 
 @app.get('/')
@@ -26,7 +26,7 @@ async def shorten_url(data: ShortnerRequest, request: Request):
         short = await uniqueShorts()
         payload = {'key': short, 'link': data.links}
         if database.put(payload):
-            return f'{request.base_url}{short}'
+            return f'{request.base_url.hostname}/{short}'
         else:
             False
 

@@ -32,6 +32,6 @@ async def duplicateLink(link: str, request: Request):
     __ = database.fetch({'link': link})._items
     if __:
         short = __[0]
-        return f'{request.base_url.fragment}{short["key"]}'
+        return f'{request.base_url.hostname}/{short["key"]}'
     else:
          return False
