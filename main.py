@@ -26,9 +26,10 @@ async def shorten_url(data: ShortnerRequest, request: Request):
         short = await uniqueShorts()
         payload = {'key': short, 'link': data.links}
         if data.expiry:
-            database.put(payload, expire_in=data.expiry):
-            return f'{request.base_url}/{short}'
+            database.put(payload, expire_in=int(data.expiry))
+            return f'{request.base_url}{short}'
         else:
-            False
+            database.put(payload)
+            return f'{request.base_url}{short}'
 
     return False
