@@ -5,8 +5,8 @@ from request import ShortnerRequest
 from fastapi.responses import RedirectResponse
 
 app = FastAPI(
-    docs_url= None, 
-    redoc_url=None,
+    # docs_url= None, 
+    # redoc_url=None,
     )
 
 @app.get('/')
