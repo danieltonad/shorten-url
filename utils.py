@@ -21,7 +21,7 @@ def is_valid_url(url):
 
 async def uniqueShorts():
     short = randomString()
-    if database.get(short):
+    if database.find_one({'key':short}):
         return await uniqueShorts()
     else:
          return short
@@ -31,9 +31,8 @@ def randomString():
     return ''.join(random.choice(characters) for _ in range(3,6))
 
 async def duplicateLink(link: str, request: Request):
-    __ = database.find_one({'link': link})._items
+    __ = database.find_one({'link': link})
     if __:
-        short = __[0]
-        return f'{request.base_url.hostname}/{short.get("key")}'
+        return f'{request.base_url.hostname}/{__.get("key")}'
     else:
          return False

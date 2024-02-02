@@ -26,7 +26,6 @@ async def shorten_url(data: ShortnerRequest, request: Request):
         short = await uniqueShorts()
         payload = {'key': short, 'link': data.links}
         resp = database.insert_one(payload)
-        print(resp)
         return f'{request.base_url}{short}'
 
     return False
