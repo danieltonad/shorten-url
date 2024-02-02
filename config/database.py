@@ -1,8 +1,12 @@
-from deta import Deta
+from pymongo import MongoClient
 from dotenv import load_dotenv
+import os
 
-# Load environment variables
+
 load_dotenv()
 
-deta = Deta()
-database = deta.Base('urls')
+client = MongoClient(os.environ.get("MG_CONN_STR"))
+
+db = client.url_shortner
+
+database = db["url_shortner"]

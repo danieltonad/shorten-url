@@ -1,6 +1,6 @@
-uvicorn
-pydantic
 fastapi
-deta
-jinja2
+uvicorn[standard]
+starlette
+pymongo
+pymongo[srv]
 python-dotenv

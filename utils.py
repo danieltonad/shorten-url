@@ -3,10 +3,12 @@ from config.database import database
 from fastapi.requests import Request
 from fastapi.responses import RedirectResponse
 import re
+from bson import ObjectId
 
 
 async def redirectShorts(short: str):
-    link = database.get(short)
+    link = database.find_one({'key':short})
+    print(link)
     if link:
         return RedirectResponse(link['link'])
     return 'invalid link'
@@ -29,9 +31,9 @@ def randomString():
     return ''.join(random.choice(characters) for _ in range(3,6))
 
 async def duplicateLink(link: str, request: Request):
-    __ = database.fetch({'link': link})._items
+    __ = database.find_one({'link': link})._items
     if __:
         short = __[0]
-        return f'{request.base_url.hostname}/{short["key"]}'
+        return f'{request.base_url.hostname}/{short.get("key")}'
     else:
          return False
