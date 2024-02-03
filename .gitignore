@@ -3,3 +3,5 @@ Spacefile
 .env
 .space
 .spaceignore
+lib
+*.zip

@@ -3,11 +3,14 @@ from config.database import database
 from utils import uniqueShorts, is_valid_url, duplicateLink, redirectShorts
 from request import ShortnerRequest
 from fastapi.responses import RedirectResponse
+from mangum import Mangum
 
 app = FastAPI(
     # docs_url= None, 
     # redoc_url=None,
     )
+
+handler = Mangum(app)
 
 @app.get('/')
 def root():
