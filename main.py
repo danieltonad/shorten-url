@@ -1,14 +1,10 @@
 from fastapi import FastAPI, Request
 from config.database import database
-from utils import uniqueShorts, is_valid_url, duplicateLink, redirectShorts
+from utils import uniqueShorts, is_valid_url, duplicateLink, redirectShorts, get_ip_address
 from request import ShortnerRequest
 from fastapi.responses import RedirectResponse
 from mangum import Mangum
-from dotenv import load_dotenv
-import os
 
-
-load_dotenv()
 
 app = FastAPI(
     # docs_url= None, 
@@ -18,10 +14,9 @@ app = FastAPI(
 handler = Mangum(app)
 
 @app.get('/')
-def root():
+async def root():
     # return RedirectResponse('https://google.com')
-    deta = os.getenv('DETA_PROJECT_KEY')
-    return deta
+    return await get_ip_address()
 
 @app.get('/{short}')
 async def links(short: str):
